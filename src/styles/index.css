@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom Properties ─────────────────────────────────── */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border: #e2e8f0;
+  --brand: #6366f1;
+  --brand-light: #e0e7ff;
+  scroll-behavior: smooth;
+}
+
+.dark {
+  --bg-primary: #0f0f1a;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #16213e;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #1e293b;
+  --brand: #818cf8;
+  --brand-light: #1e1b4b;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+
+/* ─── Focus Visible ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Selection ──────────────────────────────────────────── */
+::selection {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--text-primary);
+}
+
+/* ─── Section Utility ────────────────────────────────────── */
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-20 lg:py-28;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight;
+    color: var(--text-primary);
+  }
+
+  .section-subtitle {
+    @apply text-base sm:text-lg font-medium;
+    color: var(--text-secondary);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-500 via-accent-500 to-brand-600 bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    @apply rounded-2xl shadow-card transition-all duration-300;
+  }
+
+  .dark .glass-card {
+    @apply shadow-card-dark;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white
+           bg-gradient-to-r from-brand-500 to-accent-500
+           hover:from-brand-600 hover:to-accent-600
+           active:scale-95
+           transition-all duration-200 shadow-glow;
+  }
+
+  .btn-secondary {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold
+           hover:border-brand-400 hover:text-brand-500
+           active:scale-95
+           transition-all duration-200;
+  }
+
+  .tag {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-medium
+           bg-brand-50 text-brand-600 border border-brand-100;
+  }
+
+  .dark .tag {
+    @apply bg-brand-900/40 text-brand-300 border-brand-800;
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    @apply relative py-1 text-sm font-medium transition-colors duration-200
+           hover:text-brand-500;
+  }
+
+  .nav-link::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all duration-300 content-[''];
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    color: var(--brand);
+  }
+
+  /* Skill bar animation */
+  .skill-bar {
+    @apply h-1.5 rounded-full bg-gradient-to-r from-brand-500 to-accent-500 transition-all duration-1000 ease-out;
+    width: 0;
+  }
+
+  .skill-bar.animated {
+    width: var(--skill-width);
+  }
+}
+
+/* ─── Reduce Motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
